@@ -1,9 +1,11 @@
 <script setup>
 import '@unocss/reset/tailwind.css'
+
+useHead({
+  title: 'AOI_finder',
+})
 </script>
 
 <template>
-  <div>
-    <NuxtWelcome />
-  </div>
+  <NuxtPage />
 </template>
