@@ -7,7 +7,6 @@ export default defineNuxtConfig({
     '@formkit/auto-animate/nuxt',
     '@unocss/nuxt',
     'nuxt-mapbox',
-    'nuxt-security',
   ],
   experimental: {
     // https://vuejs.org/guide/extras/reactivity-transform.html#refs-vs-reactive-variables
