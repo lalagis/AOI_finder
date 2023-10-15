@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     '@formkit/auto-animate/nuxt',
     '@unocss/nuxt',
     'nuxt-mapbox',
+    'nuxt-security',
   ],
   experimental: {
     // https://vuejs.org/guide/extras/reactivity-transform.html#refs-vs-reactive-variables
@@ -18,6 +19,12 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       MAPBOX_STYLE: 'mapbox://styles/cirnoqvq/cliip6ot2005e01qp0axh94g8',
+    },
+  },
+  security: {
+    corsHandler: {
+      origin: '*',
+      methods: '*',
     },
   },
 })

@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia'
 
-import { AsyncData } from 'nuxt/app'
+export const useConfigStore = defineStore('config', () => {
+  const appKey = $ref('oR61jVhhckCpgE7HjUS6ihOcHafefeId')
+  // const secretKey = $ref('')
 
-export const configStore = defineStore('config', () => {
   return $$({
-
+    appKey,
+    // secretKey,
   })
 })

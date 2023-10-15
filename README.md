@@ -1,75 +1,22 @@
-# Nuxt 3 Minimal Starter
+# AOI_finder
+## Usage
+利用百度地图能力，根据POI检索可能存在的对应AOI。web在线即用。
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Tech stack
+- nuxt3, vue3, ts
+- mapbox
+- unocss
 
-## Setup
+## Based on
+- baidu map api: 
+  - place-suggestions
+  - get-aoi-by-uid
 
-Make sure to install the dependencies:
+## Deploy on Render
 
-```bash
-# npm
-npm install
+## TODO
 
-# pnpm
-pnpm install
+## references
+https://github.com/kimkata/coordinate_convert/
 
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+https://github.com/srmaper/baiduAOI
