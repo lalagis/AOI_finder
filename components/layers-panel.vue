@@ -20,7 +20,7 @@ function onClickRemoveall() {
 }
 
 function onClickRemoveItem(index: number) {
-  layers.sources.filter((_, i) => i !== index)
+  layers.sources = layers.sources.filter((_, i) => i !== index)
 }
 
 function flyto(item: FeatureCollection) {
