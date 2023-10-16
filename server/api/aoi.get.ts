@@ -1,6 +1,6 @@
 import axios from 'axios'
 import type { FeatureCollection } from 'geojson'
-import { BD092WGS84, BD09MC2GCJ02, BD09MC2WGS84, GCJ022WGS84 } from '~/utils/coordinate'
+import { BD092WGS84, BD09MC2WGS84 } from '~/utils/coordinate'
 
 const geojsonTemplate: FeatureCollection = {
   type: 'FeatureCollection',

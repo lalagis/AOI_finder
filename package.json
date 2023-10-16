@@ -12,6 +12,7 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.0",
     "@headlessui/vue": "^1.7.16",
+    "@mapbox/shp-write": "^0.4.3",
     "@pinia/nuxt": "^0.5.0",
     "axios": "^1.5.1",
     "onu-ui": "1.0.14-beta.2"
