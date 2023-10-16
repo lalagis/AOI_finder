@@ -15,6 +15,10 @@
 ## Deploy on Render
 
 ## TODO
+- [ ] 暗色模式 dark mode
+- [ ] 底图风格选择 mapbox style
+- [ ] 交互与提示 interactivity
+- [ ] 导出时坐标系选择 export crs selection
 
 ## references
 https://github.com/kimkata/coordinate_convert/
