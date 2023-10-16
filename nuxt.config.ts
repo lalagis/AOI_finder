@@ -16,11 +16,6 @@ export default defineNuxtConfig({
   mapbox: {
     accessToken: 'pk.eyJ1IjoiY2lybm9xdnEiLCJhIjoiY2xha2YxOGU3MGxreDN1bWgzbjNvMmw5cCJ9.OOwcII66PaN5yekvw-UN6Q',
   },
-  runtimeConfig: {
-    public: {
-      MAPBOX_STYLE: 'mapbox://styles/cirnoqvq/cliip6ot2005e01qp0axh94g8',
-    },
-  },
   security: {
     corsHandler: {
       origin: '*',

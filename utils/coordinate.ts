@@ -44,7 +44,7 @@ export function BD09MC2GCJ02(mercatorX: number, mercatorY: number) {
 
 function convertor(lng: number, lat: number, f: number[]) {
   if (!f) {
-    console.error('Invalid lnglat')
+    console.error('Invalid lnglat in convertor f', lng, lat, f)
     return []
   }
   let tlng = f[0] + f[1] * Math.abs(lng)
@@ -64,7 +64,7 @@ function isInvalid(lng?: number, lat?: number) {
 
 export function GCJ022BD09(lng: number, lat: number) {
   if (isInvalid(lng, lat)) {
-    console.error('Invalid lnglat')
+    console.error('Invalid lnglat in GCJ022BD09', lng, lat)
     return
   }
   const z = Math.sqrt(lng * lng + lat * lat) + 0.00002 * Math.sin(lat * xPI)
@@ -74,7 +74,7 @@ export function GCJ022BD09(lng: number, lat: number) {
 
 export function GCJ022WGS84(lng: number, lat: number) {
   if (isInvalid(lng, lat)) {
-    console.error('Invalid lnglat')
+    console.error('Invalid lnglat in GCJ022WGS84', lng, lat)
     return
   }
   if (!(lng > 73.66 && lng < 135.05 && lat > 3.86 && lat < 53.55)) {
@@ -118,7 +118,7 @@ export function BD09MC2WGS84(mercatorX: number, mercatorY: number) {
 
 export function BD092GCJ02(lng: number, lat: number) {
   if (isInvalid(lng, lat)) {
-    console.error('Invalid lnglat')
+    console.error('Invalid lnglat in BD092GCJ02', lng, lat)
     return []
   }
   const x = lng - 0.0065

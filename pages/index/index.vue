@@ -1,19 +1,18 @@
 <script setup lang="ts">
-const config = useRuntimeConfig()
+const config = useConfigStore()
 </script>
 
 <template>
   <div class="w-screen h-screen m-0 relative">
+    <search-bar />
+    <layers-panel />
+
     <mapbox-map
       map-id="base"
       class="absolute inset-0"
-      :options="{
-        style: config.public.MAPBOX_STYLE,
-        center: [113.931, 22.539],
-        zoom: 16,
-      }"
-    >
-      <div />
-    </mapbox-map>
+      :options="config.mapboxOptions"
+    />
+
+    <sources-and-layers />
   </div>
 </template>

@@ -1,5 +1,6 @@
+import axios from 'axios'
 import type { FeatureCollection } from 'geojson'
-import { BD092WGS84, BD09MC2GCJ02, GCJ022WGS84 } from './coordinate'
+import { BD092WGS84, BD09MC2GCJ02, GCJ022WGS84 } from '~/utils/coordinate'
 
 const geojsonTemplate: FeatureCollection = {
   type: 'FeatureCollection',
@@ -23,30 +24,22 @@ const geojsonTemplate: FeatureCollection = {
   }],
 }
 
-export async function getAOIFromPOI(poi: POI) {
-  if (!poi.location) {
-    console.error('POI has no location')
-    return
-  }
+export default defineEventHandler(async (event) => {
+  const { uid, lng, lat } = getQuery(event)
 
-  const uid = poi.uid
   const url = `https://map.baidu.com/?newmap=1&qt=ext&uid=${uid}&ext_ver=new&ie=utf-8&l=11`
-  const { data } = $(await useFetch(url, {
-    method: 'get',
-  }))
-  const result = JSON.parse(data as string)
-
-  const location = poi.location
-  const transformedLocation = BD092WGS84(location.lng, location.lat)
+  const { data } = await axios.get(url)
+  const transformedLocation = BD092WGS84(lng as number, lat as number)
   if (!transformedLocation) {
     console.error('transformed location from bd092 to wgs84 error')
     return
   }
   const geojson: FeatureCollection = geojsonTemplate
+  geojson.features[0].properties!.ID = uid
 
   const transformedPoints: number[][] = []
-  if (result.content && result.content.geo) {
-    const points = (result.content.geo as string).split('|')[2].split(',')
+  if (data.content && data.content.geo) {
+    const points = (data.content.geo as string).split('|')[2].split(',')
     for (let i = 0; i * 2 <= points.length; i++) {
       if (i === 0)
         points[i * 2] = points[i * 2].slice(2)
@@ -67,4 +60,4 @@ export async function getAOIFromPOI(poi: POI) {
     geojson.features[0].geometry.coordinates = transformedLocation
   }
   return geojson
-}
+})
