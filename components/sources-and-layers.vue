@@ -9,7 +9,7 @@ const { sources, points, polygons } = $(storeToRefs(layers))
   <mapbox-source
     v-for="item in sources"
     :key="`${item.features[0].properties!.uid}`"
-    :source-id="`source-${item.features[0].properties!.uid}}-source`"
+    :source-id="`${item.features[0].properties!.uid}-source`"
     :source="{
       type: 'geojson',
       data: item,
@@ -27,6 +27,7 @@ const { sources, points, polygons } = $(storeToRefs(layers))
       paint: {
         'fill-color': '#F7FB8E',
         'fill-outline-color': '#0062CA',
+        'fill-opacity': 0.5,
       },
     }"
   />

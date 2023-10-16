@@ -1,6 +1,6 @@
 import axios from 'axios'
 import type { FeatureCollection } from 'geojson'
-import { BD092WGS84, BD09MC2GCJ02, GCJ022WGS84 } from '~/utils/coordinate'
+import { BD092WGS84, BD09MC2GCJ02, BD09MC2WGS84, GCJ022WGS84 } from '~/utils/coordinate'
 
 const geojsonTemplate: FeatureCollection = {
   type: 'FeatureCollection',
@@ -15,7 +15,7 @@ const geojsonTemplate: FeatureCollection = {
   features: [{
     type: 'Feature',
     properties: {
-      ID: 0,
+      uid: '',
     },
     geometry: {
       type: 'Polygon',
@@ -35,7 +35,7 @@ export default defineEventHandler(async (event) => {
     return
   }
   const geojson: FeatureCollection = geojsonTemplate
-  geojson.features[0].properties!.ID = uid
+  geojson.features[0].properties!.uid = uid
 
   const transformedPoints: number[][] = []
   if (data.content && data.content.geo) {
@@ -43,12 +43,13 @@ export default defineEventHandler(async (event) => {
     for (let i = 0; i * 2 <= points.length; i++) {
       if (i === 0)
         points[i * 2] = points[i * 2].slice(2)
-      else if (i + 1 === (points.length / 2))
+      else if (((i + 1) * 2) === points.length)
         points[i * 2 + 1] = points[i * 2 + 1].slice(0, -1)
-      const gcj02 = BD09MC2GCJ02(Number.parseFloat(points[i * 2]), Number.parseFloat(points[i * 2 + 1]))
-      const wgs84 = GCJ022WGS84(gcj02[0], gcj02[1])
-      if (wgs84)
-        transformedPoints.push(wgs84)
+      if (!points[i * 2] || !points[i * 2 + 1])
+        continue
+      const final = BD09MC2WGS84(Number.parseFloat(points[i * 2]), Number.parseFloat(points[i * 2 + 1]))
+      if (final)
+        transformedPoints.push(final)
     }
     geojson.features[0].geometry.type = 'Polygon'
     // @ts-expect-error coordinates

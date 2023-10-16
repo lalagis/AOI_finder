@@ -21,7 +21,7 @@ const mc2ll = [
   [2.890871144776878e-9, 0.000008983055095805407, -3.068298e-8, 7.47137025468032, -0.00000353937994, -0.02145144861037, -0.00001234426596, 0.00010322952773, -0.00000323890364, 826088.5],
 ]
 
-export function BD09MC2GCJ02(mercatorX: number, mercatorY: number) {
+export function BD09MC2BD09(mercatorX: number, mercatorY: number) {
   mercatorX = Math.abs(mercatorX)
   mercatorY = Math.abs(mercatorY)
   let f: number[] = []
@@ -32,8 +32,8 @@ export function BD09MC2GCJ02(mercatorX: number, mercatorY: number) {
     }
   }
   if (!f.length) {
-    for (let i = mcBand.length - 1; i >= 0; i--) {
-      if (mercatorY <= -mcBand[i]) {
+    for (let i = 0; i < mcBand.length; i++) {
+      if (-mercatorY <= -mcBand[i]) {
         f = mc2ll[i]
         break
       }
@@ -50,8 +50,8 @@ function convertor(lng: number, lat: number, f: number[]) {
   let tlng = f[0] + f[1] * Math.abs(lng)
   const cc = Math.abs(lat) / f[9]
   let tlat: number = 0
-  for (let i = 2; i < 8; i++)
-    tlat += (f[i] * cc ** (i - 2))
+  for (let i = 2; i <= 8; i++)
+    tlat += (f[i] * (cc ** (i - 2)))
 
   tlng *= (lng < 0 ? -1 : 1)
   tlat *= (lat < 0 ? -1 : 1)
@@ -62,15 +62,15 @@ function isInvalid(lng?: number, lat?: number) {
   return (!lng || !lat) || !(lng >= -180 && lng <= 180 && lat >= -90 && lat <= 90)
 }
 
-export function GCJ022BD09(lng: number, lat: number) {
-  if (isInvalid(lng, lat)) {
-    console.error('Invalid lnglat in GCJ022BD09', lng, lat)
-    return
-  }
-  const z = Math.sqrt(lng * lng + lat * lat) + 0.00002 * Math.sin(lat * xPI)
-  const theta = Math.atan2(lat, lng) + 0.000003 * Math.cos(lng * xPI)
-  return [z * Math.cos(theta) + 0.0065, z * Math.sin(theta) + 0.006]
-}
+// export function GCJ022BD09(lng: number, lat: number) {
+//   if (isInvalid(lng, lat)) {
+//     console.error('Invalid lnglat in GCJ022BD09', lng, lat)
+//     return
+//   }
+//   const z = Math.sqrt(lng * lng + lat * lat) + 0.00002 * Math.sin(lat * xPI)
+//   const theta = Math.atan2(lat, lng) + 0.000003 * Math.cos(lng * xPI)
+//   return [z * Math.cos(theta) + 0.0065, z * Math.sin(theta) + 0.006]
+// }
 
 export function GCJ022WGS84(lng: number, lat: number) {
   if (isInvalid(lng, lat)) {
@@ -112,8 +112,8 @@ function transLng(lng: number, lat: number) {
 }
 
 export function BD09MC2WGS84(mercatorX: number, mercatorY: number) {
-  const [lng, lat] = BD09MC2GCJ02(mercatorX, mercatorY)
-  return GCJ022WGS84(lng, lat)
+  const [lng, lat] = BD09MC2BD09(mercatorX, mercatorY)
+  return BD092WGS84(lng, lat)
 }
 
 export function BD092GCJ02(lng: number, lat: number) {

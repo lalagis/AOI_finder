@@ -18,8 +18,25 @@ async function onClickSearch() {
       method: 'get',
       params: { uid: item.uid, lng: item.location.lng, lat: item.location.lat },
     }))
-    if (geojson)
+    if (geojson) {
+      // @ts-expect-error rewrite name
+      geojson.name = item.name
+      geojson.features[0].properties = {
+        ...geojson.features[0].properties,
+        // @ts-expect-error properties name
+        name: item.name,
+        location: item.location,
+        province: item.province,
+        district: item.district,
+        city: item.city,
+        adcode: item.adcode,
+        address: item.address,
+        business: item.business,
+        cityid: item.cityid,
+        tag: item.tag,
+      }
       layers.sources.push(geojson)
+    }
   })
 
   query = ''

@@ -11,8 +11,8 @@ const config = useConfigStore()
       map-id="base"
       class="absolute inset-0"
       :options="config.mapboxOptions"
-    />
-
-    <sources-and-layers />
+    >
+      <sources-and-layers />
+    </mapbox-map>
   </div>
 </template>
