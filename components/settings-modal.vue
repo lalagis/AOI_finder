@@ -9,6 +9,8 @@ import {
   TransitionChild,
   TransitionRoot,
 } from '@headlessui/vue'
+import DarkPreviewPNG from '/dark_preview.png'
+import LightPreviewPNG from '/light_preview.png'
 
 const props = defineProps<{
   isOpen: boolean
@@ -59,13 +61,30 @@ const config = useConfigStore()
                 设置
               </DialogTitle>
               <div class="flex mt-2">
+                <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                  <div class="i-akar-icons:map" />
+                </span>
+                <div class="grid grid-rows-1 grid-cols-2 items-center gap-x-2 ml-2">
+                  <img
+                    class="rounded-md h-30 object-cover cursor-pointer hover:scale-105 transition-all duration-300"
+                    :src="LightPreviewPNG"
+                    @click="config.basemapStyle = 'light'"
+                  >
+                  <img
+                    class="rounded-md h-30 object-cover cursor-pointer hover:scale-105 transition-all duration-300"
+                    :src="DarkPreviewPNG"
+                    @click="config.basemapStyle = 'dark'"
+                  >
+                </div>
+              </div>
+              <div class="flex mt-2">
                 <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                   <div class="i-akar-icons:key" />
                 </span>
                 <input
                   v-model="config.appKey"
                   type="text"
-                  class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-emerald-500 focus:border-emerald-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500"
+                  class="focus:outline-none rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-emerald-500 focus:border-emerald-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500"
                   placeholder="请粘贴百度地图API app_key(ak)"
                 >
               </div>
