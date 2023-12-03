@@ -1,3 +1,4 @@
+<!-- open when click download -->
 <script setup lang="ts">
 import {
   Dialog,
@@ -9,15 +10,20 @@ import {
 import type { FeatureCollection } from 'geojson'
 import shpwrite from '@mapbox/shp-write'
 
+// receive isOpen status and geojson file
 const props = defineProps<{
   isOpen: boolean
   file: FeatureCollection
 }>()
+// method to close
 const emits = defineEmits<{
   (e: 'closeModal'): void
 }>()
+
+// is the modal open
 const isOpen = $computed(() => props.isOpen)
 
+// download geojson file, make a blob and download
 function onClickGeojson() {
   const str = JSON.stringify(props.file)
   const blob = new Blob([str], { type: 'application/json' })
@@ -28,6 +34,7 @@ function onClickGeojson() {
   link.click()
 }
 
+// download shp file, use shpwrite module
 function onClickShp() {
   shpwrite.download(props.file, {
     // @ts-expect-error has name
@@ -69,12 +76,14 @@ function onClickShp() {
             <DialogPanel
               class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
             >
+              <!-- title  -->
               <DialogTitle
                 as="h3"
                 class="text-lg font-medium leading-6 text-gray-900"
               >
                 下载
               </DialogTitle>
+              <!-- buttons -->
               <div class="mt-4 flex flex-row items-center justify-between">
                 <div
                   class="cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-emerald-100 px-4 py-2 text-sm font-medium text-emerald-900 hover:bg-emerald-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 transition-all duration-300"

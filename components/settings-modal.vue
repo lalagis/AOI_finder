@@ -1,3 +1,4 @@
+<!-- open when click settings -->
 <script setup lang="ts">
 import {
   Dialog,
@@ -12,12 +13,16 @@ import {
 import DarkPreviewPNG from '/dark_preview.png'
 import LightPreviewPNG from '/light_preview.png'
 
+// receive isOpen status
 const props = defineProps<{
   isOpen: boolean
 }>()
+// method to close
 const emits = defineEmits<{
   (e: 'closeModal'): void
 }>()
+
+// is the modal open
 const isOpen = $computed(() => props.isOpen)
 
 const config = useConfigStore()
@@ -54,12 +59,14 @@ const config = useConfigStore()
             <DialogPanel
               class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
             >
+              <!-- title -->
               <DialogTitle
                 as="h3"
                 class="text-lg font-medium leading-6 text-gray-900"
               >
                 设置
               </DialogTitle>
+              <!-- basemap style -->
               <div class="flex mt-2">
                 <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                   <div class="i-akar-icons:map" />
@@ -77,6 +84,7 @@ const config = useConfigStore()
                   >
                 </div>
               </div>
+              <!-- baidu map ak -->
               <div class="flex mt-2">
                 <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                   <div class="i-akar-icons:key" />
@@ -88,6 +96,7 @@ const config = useConfigStore()
                   placeholder="请粘贴百度地图API app_key(ak)"
                 >
               </div>
+              <!-- tips for ak -->
               <div class="w-full mt-2">
                 <div class="mx-auto w-full max-w-md rounded-2xl bg-white p-2">
                   <Disclosure v-slot="{ open }">
@@ -109,6 +118,7 @@ const config = useConfigStore()
                 </div>
               </div>
 
+              <!-- hide button -->
               <div class="mt-4">
                 <div
                   class="cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-emerald-100 px-4 py-2 text-sm font-medium text-emerald-900 hover:bg-emerald-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 transition-all duration-300"

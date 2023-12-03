@@ -1,23 +1,32 @@
 <script setup lang="ts">
+// use stores
 const config = useConfigStore()
 const layers = useLayersStore()
-let searching = $ref(false)
 
+// is searching
+let searching = $ref(false)
+// input values
 const region = $ref('')
 let query = $ref('')
 
+// when click search button
 async function onClickSearch() {
+  // switch searching status, to show spinner icon
   searching = true
 
+  // get pois data from our api
   const { data } = $(await useFetch('/api/suggestions', {
     method: 'get',
     params: { region, query, appKey: config.appKey },
   }))
+  // for each poi
   data.forEach(async (item: POI) => {
+    // try to search aoi
     const { data: geojson } = $(await useFetch('/api/aoi', {
       method: 'get',
       params: { uid: item.uid, lng: item.location.lng, lat: item.location.lat },
     }))
+    // geojson will be returned as usual regardless of whether aoi exists or not
     if (geojson) {
       // @ts-expect-error rewrite name
       geojson.name = item.name
@@ -39,15 +48,20 @@ async function onClickSearch() {
     }
   })
 
+  // clean and reset
   query = ''
   searching = false
 }
 </script>
 
 <template>
+  <!-- position -->
   <div class="fixed inset-x-0 z-10">
+    <!-- container -->
     <div class="w-[30vw] max-w-[540px] drop-shadow-md bg-white mt-30 rounded-4 mx-auto relative flex flex-row items-center">
+      <!-- main input spaces -->
       <div class="flex-1 grid grid-cols-4 divide-x h-16">
+        <!-- left region panel -->
         <div class="col-span-1 h-full rounded-l-4 flex items-center">
           <input
             v-model="region"
@@ -56,6 +70,7 @@ async function onClickSearch() {
             placeholder="区域(如深圳市)"
           >
         </div>
+        <!-- right keywords panel -->
         <div class="col-span-3 h-full rounded-r-4 flex items-center">
           <input
             v-model="query"
@@ -65,6 +80,7 @@ async function onClickSearch() {
           >
         </div>
       </div>
+      <!-- search-button icons(search/loading) -->
       <div
         v-auto-animate
         class="rounded-r-4 absolute right-0 h-16 w-16 flex items-center bg-emerald justify-center cursor-pointer transition-all duration-300 hover:bg-green active:scale-105"

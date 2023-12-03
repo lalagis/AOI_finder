@@ -1,3 +1,4 @@
+// POI type
 interface POI {
   adcode: string
   address: string
@@ -6,7 +7,7 @@ interface POI {
   city: string
   cityid: string
   district: string
-  location: { lat: number; lng: number }
+  location: { lat: number, lng: number }
   name: string
   province: string
   tag: string
